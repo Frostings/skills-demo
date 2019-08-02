@@ -1,6 +1,6 @@
 extends Node2D
-class_name Skill
 
+class_name Skill
 
 enum SkillStatus {
 	USED,
@@ -9,7 +9,6 @@ enum SkillStatus {
 	CROWD_CONTROLLED,
 	NO_AVAILABLE_TARGETS,
 }
-
 
 export (float, 0, 500, 0.25) var cooldown := 1.0
 export (int, 1, 10) var charges := 1
@@ -43,19 +42,19 @@ func add_effect( _effect: Effect ) -> void:
 
 
 # Play all my effects
-func play_effects( _actor: KinematicBody2D, mouse_posn: Vector2, target: Node2D ) -> void:
+func play_effects( mouse_posn: Vector2, target: Node2D ) -> void:
 	for effect in effects:
-		effect.play( _actor, mouse_posn, target )
+		effect.play( mouse_posn, target )
 	
 
 # General check to see if the skill is on cool down, or if I am crowd controlled
-func use( _actor: KinematicBody2D, _mouse_posn: Vector2, target: Node2D ) -> int:
+func use( _mouse_posn: Vector2, target: Node2D ) -> int:
 	if !available_charges:
 		return SkillStatus.ON_COOLDOWN
-	if _actor.is_crowd_controlled() and !bypass_cc:
+	if actor.is_crowd_controlled() and !bypass_cc:
 		return SkillStatus.CROWD_CONTROLLED
 	
-	if target and !is_in_range( _actor, target ):
+	if target and !is_in_range( target ):
 		return SkillStatus.QUEUED
 	
 	if cooldown_timer.is_stopped():
@@ -64,10 +63,10 @@ func use( _actor: KinematicBody2D, _mouse_posn: Vector2, target: Node2D ) -> int
 	return SkillStatus.USED
 	
 
-func is_in_range( _actor: KinematicBody2D, _target: Node2D ) -> bool:
+func is_in_range( _target: Node2D ) -> bool:
 	if cast_range == 0.0:
 		return true
-	return (_target.get_position() - _actor.get_position()).length() <= cast_range + _target.get_radius()
+	return ( _target.get_position() - actor.get_position() ).length() <= cast_range + _target.get_radius()
 	
 
 # Add a charge when my skill goes off cooldown

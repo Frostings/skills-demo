@@ -6,7 +6,7 @@ var target: Node2D
 var _buff_timer: Timer
 
 
-func _init( _target:Node2D, duration: float ).( Effect.Type.BUFF ) -> void:
+func _init( _actor:Node2D, _target:Node2D, duration: float ).( _actor, Effect.Type.BUFF ) -> void:
 	target = _target
 	_buff_timer = Timer.new()
 	_buff_timer.set_one_shot( true )
@@ -15,12 +15,12 @@ func _init( _target:Node2D, duration: float ).( Effect.Type.BUFF ) -> void:
 	if _buff_timer.connect("timeout", self, "_on_buff_timer_timeout"):
 		print_debug("Buff timer already connected")
 	add_child( _buff_timer )
-
+	
 
 # Play the effect
-func play( _actor: KinematicBody2D = null, _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> void:
+func play( _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> void:
 	_buff_timer.start()
-
+	
 
 func get_target() -> Node2D:
 	return target
@@ -29,8 +29,9 @@ func get_target() -> Node2D:
 # After the buff expires, undo the buff
 func _on_buff_timer_timeout() -> void:
 	end()
-
+	
 
 # End the buff. Generally it's the inverse of play()
 func end() -> void:
 	pass
+	

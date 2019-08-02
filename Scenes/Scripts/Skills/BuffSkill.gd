@@ -8,16 +8,15 @@ export (float, 0, 1000, 5) var buff_range: float
 export (float, 0, 2, 0.1) var delay := 0.0
 
 
-func _init() -> void:
-	var effect = AOEEffect.new( buff_range, delay )
+func _init( _actor:Node2D ).( _actor ) -> void:
+	var effect = AOEEffect.new( _actor, buff_range, delay )
 	add_child( effect )
 
 
-func use( _actor: KinematicBody2D, _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> int:
-	var skill_status: int = .use( _actor, _mouse_posn )
+func use( _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> int:
+	var skill_status: int = .use( _mouse_posn )
 	if skill_status != SkillStatus.USED:
 		return skill_status
 		
-	play_effects( _actor, _mouse_posn, _target )
+	play_effects( _mouse_posn, _target )
 	return skill_status
-

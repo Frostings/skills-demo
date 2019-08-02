@@ -9,7 +9,7 @@ var delay: float
 var dash_tween: Tween
 
 
-func _init( _dash_range: float, _speed: float, _delay: float ).( Effect.Type.DASH ) -> void:
+func _init( _actor: Node2D, _dash_range: float, _speed: float, _delay: float ).( _actor, Effect.Type.DASH ) -> void:
 	dash_range = _dash_range
 	speed = _speed
 	delay = _delay
@@ -21,7 +21,7 @@ func _init( _dash_range: float, _speed: float, _delay: float ).( Effect.Type.DAS
 
 
 # Play the effect
-func play( actor: KinematicBody2D, mouse_posn: Vector2, target: Node2D ) -> void:
+func play( mouse_posn: Vector2, target: Node2D ) -> void:
 	var velocity: Vector2
 	if target:
 		velocity = target.position - actor.position

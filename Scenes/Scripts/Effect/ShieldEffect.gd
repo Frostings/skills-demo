@@ -2,20 +2,26 @@ extends BuffEffect
 
 class_name ShieldEffect
 
-var shield_amount: int
 
-
-func _init( _actor: Node2D, _target:Node2D, duration: float, _shield_amount:int ).( _actor, _target, duration ) -> void:
-	shield_amount = _shield_amount
+export (int, 10) var _shield_amount: int = 1
 	
 
 # Play the effect
-func play( _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> void:
-	target.add_shield_amount( shield_amount )
+func play( _mouse_posn: Vector2 = Vector2(), target: Node2D = null ) -> void:
+	_target.add_shield_amount( _shield_amount )
 	.play()
-	
+	print( "yes" )
 
 # End the effect. generally it's the inverse operation of play()
 func end() -> void:
-	target.remove_shield_amount( shield_amount )
+	_target.remove_shield_amount( _shield_amount )
+	print( "no" )
+
+func get_shield_amount() -> int:
+	return _shield_amount
 	
+
+func set_shield_amount( value: int ) -> void:
+	_shield_amount = value
+	
+

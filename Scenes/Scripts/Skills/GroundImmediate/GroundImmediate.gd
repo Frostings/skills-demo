@@ -5,10 +5,14 @@ extends Skill
 class_name GroundImmediate
 
 
-func _init( _actor:Node2D ).( _actor ) -> void:
+func _ready() -> void:
 	pass
 
 
-func use( mouse_posn: Vector2, _acting_on: Node2D = null ) -> int:
-	return .use( mouse_posn, _acting_on )
-
+func use( mouse_posn: Vector2, _target: Node2D = null ) -> int:
+	var skill_status: int = .use( mouse_posn )
+	if skill_status != SkillStatus.USED:
+		return skill_status
+	
+	play_effects( mouse_posn )
+	return skill_status

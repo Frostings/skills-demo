@@ -4,11 +4,11 @@ extends Skill
 class_name TargetQueue
 
 
-func _init( actor: Node2D ).( actor ) -> void:
+func _init() -> void:
 	pass
 
 
-func use( mouse_posn: Vector2, target: Node2D ) -> int:
+func use( mouse_posn: Vector2, target: Node2D = null ) -> int:
 	var skill_status: int = .use( mouse_posn, target )
 	
 	if skill_status != SkillStatus.USED and skill_status != SkillStatus.QUEUED:

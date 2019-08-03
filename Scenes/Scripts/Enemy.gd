@@ -3,11 +3,8 @@ extends KinematicBody2D
 signal enemy_hovered
 signal enemy_unhovered
 
+
 export (int, 0, 100, 5) var radius: int = 35 setget , get_radius
-
-
-func _init() -> void:
-	pass
 
 
 func _ready() -> void:

@@ -1,13 +1,13 @@
 extends KinematicBody2D
-
 class_name Player
+
 
 export (int, 0, 500, 5) var speed := 200
 
 var target := Vector2()
 var velocity := Vector2()
-var queued_target: Node2D
-var hovered_target: Node2D
+var queued_target: PhysicsBody2D
+var hovered_target: PhysicsBody2D
 var queued_cast_range: float
 var queued_skill: Skill
 var shield_amount: int = 0
@@ -55,7 +55,7 @@ func _physics_process( _delta: float ) -> void:
 	
 
 # queue a target to attack or use a skill on
-func queue_target( _target: Node2D, _cast_range: float, _skill:TargetQueue ) -> void:
+func queue_target( _target: PhysicsBody2D, _cast_range: float, _skill:TargetQueue ) -> void:
 	movement_queued = true
 	queued_target = _target
 	queued_cast_range = _cast_range
@@ -74,7 +74,7 @@ func move_slide( _delta: float ) -> void:
 	
 
 # Use a skill on a target
-func _use_skill( skill:Skill, _target: Node2D ) -> int:
+func _use_skill( skill:Skill, _target: PhysicsBody2D ) -> int:
 	var mouse_posn: Vector2 = get_global_mouse_position()
 	var skill_status = skill.use( mouse_posn, _target )
 	
@@ -105,11 +105,11 @@ func is_crowd_controlled() -> bool:
 	return false
 	
 
-func _on_enemy_hovered( _target: Node2D ) -> void:
+func _on_enemy_hovered( _target: PhysicsBody2D ) -> void:
 	hovered_target = _target
 	
 
-func _on_enemy_unhovered( _target: Node2D ) -> void:
+func _on_enemy_unhovered( _target: PhysicsBody2D ) -> void:
 	if hovered_target == _target:
 		hovered_target = null
 	

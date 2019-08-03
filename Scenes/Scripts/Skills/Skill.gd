@@ -1,6 +1,6 @@
 extends Node2D
-
 class_name Skill, "res://Assets/CustomIcons/Skill.png"
+
 
 enum SkillStatus {
 	USED,
@@ -19,24 +19,20 @@ var cooldown_timer: Timer
 var effects: Array
 var available_charges: int
 var actor: Node2D
+	
 
-
-func _init() -> void:
+func _ready() -> void:
 	actor = get_parent()
 	available_charges = charges
 	
 	# Create the cooldown timer
 	cooldown_timer = Timer.new()
 	if cooldown_timer.connect( "timeout", self, "_on_cooldown_timer_timeout" ):
-		print_debug( "Error connecting Timer" )
+		print_debug( Utility.ERROR_SIGNAL )
 	cooldown_timer.set_one_shot( false )
 	cooldown_timer.set_autostart( false )
 	cooldown_timer.set_wait_time( cooldown )
 	add_child( cooldown_timer )
-	
-
-func _ready():
-	_init()
 
 
 # Add an effect to the skill
@@ -47,16 +43,14 @@ func add_effect( _effect: Effect ) -> void:
 	
 
 # Play all my effects
-func play_effects( mouse_posn: Vector2, target: Node2D = null ) -> void:
+func play_effects( mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
 	for node in get_children():
-		if (node is Effect):
+		if node is Effect:
 			node.play( mouse_posn, target )
-#	for effect in effects:
-#		effect.play( mouse_posn, target )
 	
 
 # General check to see if the skill is on cool down, or if I am crowd controlled
-func use( _mouse_posn: Vector2, target: Node2D = null ) -> int:
+func use( _mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
 	if !available_charges:
 		return SkillStatus.ON_COOLDOWN
 	if actor.is_crowd_controlled() and !bypass_cc:
@@ -71,7 +65,7 @@ func use( _mouse_posn: Vector2, target: Node2D = null ) -> int:
 	return SkillStatus.USED
 	
 
-func is_in_range( _target: Node2D ) -> bool:
+func is_in_range( _target: PhysicsBody2D ) -> bool:
 	if cast_range == 0.0:
 		return true
 	return ( _target.get_position() - actor.get_position() ).length() <= cast_range + _target.get_radius()

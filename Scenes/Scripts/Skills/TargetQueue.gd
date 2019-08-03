@@ -1,14 +1,14 @@
 # TargetQueue must have selected target. It will walk towards the target if not in range and queue the skill.
-
 extends Skill
-class_name TargetQueue
+
+class_name TargetQueue, "res://Assets/CustomIcons/TargetQueue.png"
 
 
-func _init( actor: Node2D ).( actor ) -> void:
+func _init() -> void:
 	pass
 
 
-func use( mouse_posn: Vector2, target: Node2D ) -> int:
+func use( mouse_posn: Vector2, target: Node2D = null ) -> int:
 	var skill_status: int = .use( mouse_posn, target )
 	
 	if skill_status != SkillStatus.USED and skill_status != SkillStatus.QUEUED:

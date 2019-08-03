@@ -12,47 +12,32 @@ _global_script_classes=[ {
 "base": "Effect",
 "class": "AOEEffect",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effect/AOEEffect.gd"
+"path": "res://Scenes/Scripts/Effects/AOEEffect.gd"
 }, {
 "base": "TargetQueue",
 "class": "BasicAttack",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/TargetQueue/BasicAttack.gd"
+"path": "res://Scenes/Scripts/Skills/BasicAttack.gd"
 }, {
 "base": "Effect",
 "class": "BuffEffect",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effect/Dash/BuffEffect.gd"
-}, {
-"base": "GroundImmediate",
-"class": "BuffSkill",
-"language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/BuffSkill.gd"
-}, {
-"base": "GroundImmediate",
-"class": "Dash",
-"language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/GroundImmediate/Dash.gd"
-}, {
-"base": "TargetQueue",
-"class": "Dash2",
-"language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/TargetQueue/Dash2.gd"
+"path": "res://Scenes/Scripts/Effects/BuffEffect.gd"
 }, {
 "base": "Effect",
 "class": "DashEffect",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effect/Dash/DashEffect.gd"
+"path": "res://Scenes/Scripts/Effects/DashEffect.gd"
 }, {
 "base": "Node2D",
 "class": "Effect",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effect/Effect.gd"
+"path": "res://Scenes/Scripts/Effects/Effect.gd"
 }, {
 "base": "Skill",
 "class": "GroundImmediate",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/GroundImmediate/GroundImmediate.gd"
+"path": "res://Scenes/Scripts/Skills/GroundImmediate.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -62,7 +47,7 @@ _global_script_classes=[ {
 "base": "BuffEffect",
 "class": "ShieldEffect",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effect/ShieldEffect.gd"
+"path": "res://Scenes/Scripts/Effects/ShieldEffect.gd"
 }, {
 "base": "Node2D",
 "class": "Skill",
@@ -72,22 +57,19 @@ _global_script_classes=[ {
 "base": "Skill",
 "class": "TargetQueue",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Skills/TargetQueue/TargetQueue.gd"
+"path": "res://Scenes/Scripts/Skills/TargetQueue.gd"
 } ]
 _global_script_class_icons={
 "AOEEffect": "",
 "BasicAttack": "",
 "BuffEffect": "",
-"BuffSkill": "",
-"Dash": "",
-"Dash2": "",
 "DashEffect": "",
-"Effect": "",
-"GroundImmediate": "",
+"Effect": "res://Assets/CustomIcons/Effect.png",
+"GroundImmediate": "res://Assets/CustomIcons/GroundImmediate.png",
 "Player": "",
 "ShieldEffect": "",
-"Skill": "",
-"TargetQueue": ""
+"Skill": "res://Assets/CustomIcons/Skill.png",
+"TargetQueue": "res://Assets/CustomIcons/TargetQueue.png"
 }
 
 [application]
@@ -102,6 +84,10 @@ window/size/width=640
 window/size/height=360
 window/size/test_width=1280
 window/size/test_height=720
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [input]
 

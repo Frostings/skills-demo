@@ -1,9 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Scripts/World.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Scripts/Skills/TargetQueue.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Scripts/Effects/DashEffect.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Scripts/Effects/AOEEffect.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Scripts/Effects/ShieldEffect.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Scripts/Skills/BasicAttack.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -30,7 +35,24 @@ animations = [ {
 [node name="World" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 9 )]
+
+[node name="TargetQueue" type="Node2D" parent="Player"]
+script = ExtResource( 4 )
+
+[node name="DashEffect" type="Node2D" parent="Player/TargetQueue"]
+script = ExtResource( 5 )
+dash_range = 100.0
+speed = 0.02
+
+[node name="AOEEffect" type="Node2D" parent="Player/TargetQueue"]
+script = ExtResource( 6 )
+
+[node name="ShieldEffect" type="Node2D" parent="Player/TargetQueue"]
+script = ExtResource( 7 )
+
+[node name="BasicAttack" type="Node2D" parent="Player"]
+script = ExtResource( 8 )
 
 [node name="Wall" type="AnimatedSprite" parent="."]
 position = Vector2( 244.069, 153.95 )

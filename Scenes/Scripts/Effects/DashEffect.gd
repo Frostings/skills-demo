@@ -2,7 +2,7 @@ extends Effect
 
 class_name DashEffect
 
-export (float, 0, 500, 5) var dash_range: float
+export (float, 0, 500, 5) var dash_range: float setget set_dash_range, get_dash_range
 export (float, 0, 5, 0.01) var speed: float
 
 var dash_tween: Tween
@@ -26,7 +26,7 @@ func play( mouse_posn: Vector2, target: Node2D = null ) -> void:
 		direction = direction.normalized()
 		
 		if fixed_range:
-			destination = target.get_position() + direction * dash_range
+			destination = _actor.get_position() + direction * dash_range
 		else:
 			# dash 1 length shy in direction of target such that we land on the same side as the dash
 			destination = target.get_position() - direction
@@ -38,9 +38,8 @@ func play( mouse_posn: Vector2, target: Node2D = null ) -> void:
 			destination = _actor.get_position() + direction
 		else:
 			direction = direction.normalized()
-			print( direction )
 			destination = _actor.get_position() + direction * dash_range
-			print( destination - _actor.get_position() )
+
 	if !dash_tween.interpolate_property( _actor, "position", _actor.get_position(), destination, speed,
 			Tween.TRANS_LINEAR, Tween.EASE_OUT_IN, delay ):
 		print_debug( "Error setting Tween's interpolate_property" )
@@ -52,4 +51,13 @@ func play( mouse_posn: Vector2, target: Node2D = null ) -> void:
 # After dashing, snap out of colliders
 func _on_dash_completed( _actor: KinematicBody2D, _key: NodePath ) -> void:
 	var _collision: KinematicCollision2D = _actor.move_and_collide( Vector2(0,0) )
+	
+
+func set_dash_range( value: float ) -> void:
+	dash_range = stepify( value, 5 )
+
+
+func get_dash_range() -> float:
+	return dash_range
+	
 	

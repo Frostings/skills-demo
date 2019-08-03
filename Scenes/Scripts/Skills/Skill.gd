@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name Skill
+class_name Skill, "res://Assets/CustomIcons/Skill.png"
 
 enum SkillStatus {
 	USED,

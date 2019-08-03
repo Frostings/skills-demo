@@ -1,8 +1,7 @@
 # GroundImmediate is a skill that will cast irrespective of the mouse position.
-
 extends Skill
 
-class_name GroundImmediate
+class_name GroundImmediate, "res://Assets/CustomIcons/GroundImmediate.png"
 
 
 func _ready() -> void:

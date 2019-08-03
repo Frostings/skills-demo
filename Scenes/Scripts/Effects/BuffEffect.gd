@@ -2,12 +2,11 @@ extends Effect
 
 class_name BuffEffect
 
-export (float, 0, 5, 0.25) var _duration: float = 1.0
+export (float, 0, 5, 0.25) var _duration: float = 1.0 setget set_duration, get_duration
 
-var _target: Node2D
 var _buff_timer: Timer
 
-	
+
 func _ready():
 	# Create the buff timer
 	_buff_timer = Timer.new()
@@ -20,10 +19,6 @@ func _ready():
 # Play the effect
 func play( _mouse_posn: Vector2 = Vector2(), _target: Node2D = null ) -> void:
 	_buff_timer.start()
-	
-
-func get_target() -> Node2D:
-	return _target
 	
 
 # After the buff expires, undo the buff

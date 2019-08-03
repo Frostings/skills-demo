@@ -1,7 +1,7 @@
 # TargetQueue must have selected target. It will walk towards the target if not in range and queue the skill.
-
 extends Skill
-class_name TargetQueue
+
+class_name TargetQueue, "res://Assets/CustomIcons/TargetQueue.png"
 
 
 func _init() -> void:

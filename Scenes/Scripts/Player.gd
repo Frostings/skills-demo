@@ -12,14 +12,12 @@ var queued_cast_range: float
 var queued_skill: Skill
 var shield_amount: int = 0
 
-onready var BASIC_A: Skill = BasicAttack.new()
-onready var SKILL_Q = $GroundImmediate
+onready var BASIC_A: Skill = $BasicAttack
+onready var SKILL_Q = $TargetQueue
 onready var movement_queued = false
 
 
 func _ready() -> void:
-	var my_node: GroundImmediate = GroundImmediate.new()
-	add_child( BASIC_A )
 	pass
 	
 

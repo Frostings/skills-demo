@@ -9,6 +9,7 @@ export (bool) var fixed_range: bool = true setget set_fixed_range, get_fixed_ran
 var dash_tween: Tween
 var _target: PhysicsBody2D
 
+
 func _ready():
 	dash_tween = Tween.new()
 	if dash_tween.connect( "tween_completed", self, "_on_dash_completed" ):

@@ -13,7 +13,10 @@ var queued_skill: Skill
 var shield_amount: int = 0
 
 onready var BASIC_A: Skill = $BasicAttack
-onready var SKILL_Q = $TargetQueue
+onready var SKILL_Q: Skill = $SkillQ
+onready var SKILL_W: Skill = $SkillW
+onready var SKILL_E: Skill = $SkillE
+
 onready var movement_queued = false
 
 
@@ -35,6 +38,14 @@ func _physics_process( _delta: float ) -> void:
 	
 	if Input.is_action_just_pressed("skill_q"):
 		if _use_skill( SKILL_Q, hovered_target ):
+			pass
+	
+	if Input.is_action_just_pressed("skill_w"):
+		if _use_skill( SKILL_W, hovered_target ):
+			pass
+	
+	if Input.is_action_just_pressed("skill_e"):
+		if _use_skill( SKILL_E, hovered_target ):
 			pass
 	
 	if queued_target:

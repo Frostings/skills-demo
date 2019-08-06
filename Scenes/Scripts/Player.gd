@@ -132,18 +132,14 @@ func _on_enemy_unhovered( _target: PhysicsBody2D ) -> void:
 		hovered_target = null
 	
 
-
 func _on_speed_added( _flat_speed: float, _scaling_speed: float ) -> void:
 	flat_speed += _flat_speed
 	scaling_speed = stepify( scaling_speed * _scaling_speed, 0.001 )
 	update_speed()
 
-func _on_speed_expired( _flat_speed: float, _scaling_speed: float ) -> void:
-	print('1')
-	flat_speed -= _flat_speed
-	print(scaling_speed, " ", _scaling_speed)
-	scaling_speed = stepify( scaling_speed / _scaling_speed, 0.001 )
-	print (scaling_speed)
-	update_speed()
 
+func _on_speed_expired( _flat_speed: float, _scaling_speed: float ) -> void:
+	flat_speed -= _flat_speed
+	scaling_speed = stepify( scaling_speed / _scaling_speed, 0.001 )
+	update_speed()
 

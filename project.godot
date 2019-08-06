@@ -55,9 +55,9 @@ _global_script_classes=[ {
 "path": "res://Scenes/Scripts/Effects/SeekingEffect.gd"
 }, {
 "base": "BuffEffect",
-"class": "ShieldEffect",
+"class": "ShieldBuff",
 "language": "GDScript",
-"path": "res://Scenes/Scripts/Effects/ShieldEffect.gd"
+"path": "res://Scenes/Scripts/Effects/Buffs/ShieldBuff.gd"
 }, {
 "base": "Sprite",
 "class": "Shot",
@@ -73,6 +73,11 @@ _global_script_classes=[ {
 "class": "SkillShotEffect",
 "language": "GDScript",
 "path": "res://Scenes/Scripts/Effects/SkillShotEffect.gd"
+}, {
+"base": "BuffEffect",
+"class": "SpeedBuff",
+"language": "GDScript",
+"path": "res://Scenes/Scripts/Effects/Buffs/SpeedBuff.gd"
 }, {
 "base": "Skill",
 "class": "TargetQueue",
@@ -94,10 +99,11 @@ _global_script_class_icons={
 "Player": "",
 "Seeker": "",
 "SeekingEffect": "",
-"ShieldEffect": "",
+"ShieldBuff": "",
 "Shot": "",
 "Skill": "res://Assets/CustomIcons/Skill.png",
 "SkillShotEffect": "",
+"SpeedBuff": "",
 "TargetQueue": "res://Assets/CustomIcons/TargetQueue.png",
 "Utility": ""
 }

@@ -2,21 +2,21 @@ extends Effect
 class_name SkillShotEffect
 
 
-export (float, 0, 500, 5) var skill_shot_range: float = 100 setget set_skill_shot_range, get_skill_shot_range
-export (float, 0, 5, 0.01) var speed: float setget set_speed, get_speed
-export (float, 0, 500, 1) var radius: float = 50 setget set_radius, get_radius
-export (bool) var fixed_range: bool = true
+export (float, 0, 500, 5) var skill_shot_range := 100.0 setget set_skill_shot_range, get_skill_shot_range
+export (float, 0, 5, 0.01) var speed := 0.1 setget set_speed, get_speed
+export (float, 0, 500, 1) var radius := 50.0 setget set_radius, get_radius
+export (bool) var fixed_range := true
 
 export ( Texture ) var texture: Texture
 
 var shot_script: Reference = preload("res://Scenes/Scripts/Effects/Shot.gd")
 
 
-func play( _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
-	_create_shot( _mouse_posn, _target )
+func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+	_create_shot( _actor, _mouse_posn, _target )
 	
 
-func _create_shot( _mouse_posn: Vector2, _target: PhysicsBody2D ) -> void:
+func _create_shot( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D ) -> void:
 	var shot: Sprite = Sprite.new()
 	shot.set_script( shot_script )
 	
@@ -42,7 +42,7 @@ func on_shot_hit( _effect: Effect, _actor: PhysicsBody2D, target: PhysicsBody2D 
 
 
 
-# Setgetters ------------------------------ #
+# Setgetters -------------------------------------- #
 func set_radius( value: float ) -> void:
 	radius = stepify( value, 1 )
 	

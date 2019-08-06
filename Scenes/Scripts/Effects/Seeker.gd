@@ -20,6 +20,8 @@ func _physics_process( _delta: float ) -> void:
 		queue_free()
 
 
+
+# Setgetters -------------------------------------- #
 func set_target( value: PhysicsBody2D ) -> void:
 	target = value
 

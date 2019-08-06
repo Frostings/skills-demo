@@ -4,7 +4,7 @@ class_name DashEffect
 
 export (float, 0, 500, 5) var dash_range: float setget set_dash_range, get_dash_range
 export (float, 0, 5, 0.01) var speed: float
-export (bool) var fixed_range: bool = true setget set_fixed_range, get_fixed_range
+export (bool) var fixed_range := true setget set_fixed_range, get_fixed_range
 
 var dash_tween: Tween
 var _target: PhysicsBody2D
@@ -18,7 +18,7 @@ func _ready():
 
 
 # Play the effect
-func play( mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
+func play( _actor: PhysicsBody2D, mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
 	var direction: Vector2
 	var destination: Vector2
 	_target = target
@@ -62,6 +62,8 @@ func _on_dash_completed( _actor: KinematicBody2D, _key: NodePath ) -> void:
 			child.play( _actor.position, _target )
 
 
+
+# Setgetters -------------------------------------- #
 func set_dash_range( value: float ) -> void:
 	dash_range = stepify( value, 5 )
 

@@ -3,13 +3,13 @@ extends Effect
 class_name AOEEffect
 
 
-export (float, 0, 5, 0.1) var duration: float = 1
+export (float, 0, 5, 0.1) var duration := 1
 
 onready var area: Area2D
 onready var bodies: Array = [] setget , get_bodies
 
 var _expire_timer: Timer
-
+var actor: PhysicsBody2D
 
 func _ready() -> void:
 	# Find the Area2D node in our children
@@ -38,7 +38,8 @@ func _ready() -> void:
 	
 	
 # Play the effect
-func play( _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+	actor = _actor
 	area.monitoring = true
 	_expire_timer.start()
 	
@@ -60,14 +61,14 @@ class SortByName:
 
 
 func _on_body_entered( body: PhysicsBody2D ) -> void:
-	if body == _actor:
+	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )
 	bodies.insert( i, body )
 
 
 func _on_body_exited( body: PhysicsBody2D ) -> void:
-	if body == _actor:
+	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )
 	bodies.remove( i )

@@ -2,7 +2,7 @@ extends KinematicBody2D
 class_name Player
 
 
-export (int, 0, 500, 5) var speed := 200
+export (int, 0, 500, 5) var base_speed := 200
 
 var target := Vector2()
 var velocity := Vector2()
@@ -11,6 +11,7 @@ var hovered_target: PhysicsBody2D
 var queued_cast_range: float
 var queued_skill: Skill
 var shield_amount: int = 0
+var speed = 200 # TODO
 
 onready var BASIC_A: Skill = $BasicAttack
 onready var SKILL_Q: Skill = $SkillQ
@@ -18,6 +19,12 @@ onready var SKILL_W: Skill = $SkillW
 onready var SKILL_E: Skill = $SkillE
 
 onready var movement_queued = false
+
+# Stats
+var flat_speed = 0
+var scaling_speed = 1.0
+func update_speed():
+	speed = base_speed * scaling_speed + flat_speed
 
 
 func _ready() -> void:
@@ -87,7 +94,7 @@ func move_slide( _delta: float ) -> void:
 # Use a skill on a target
 func _use_skill( skill:Skill, _target: PhysicsBody2D ) -> int:
 	var mouse_posn: Vector2 = get_global_mouse_position()
-	var skill_status = skill.use( mouse_posn, _target )
+	var skill_status = skill.use( self, mouse_posn, _target )
 	
 	match skill_status:
 		Skill.SkillStatus.USED:
@@ -124,3 +131,19 @@ func _on_enemy_unhovered( _target: PhysicsBody2D ) -> void:
 	if hovered_target == _target:
 		hovered_target = null
 	
+
+
+func _on_speed_added( _flat_speed: float, _scaling_speed: float ) -> void:
+	flat_speed += _flat_speed
+	scaling_speed = stepify( scaling_speed * _scaling_speed, 0.001 )
+	update_speed()
+
+func _on_speed_expired( _flat_speed: float, _scaling_speed: float ) -> void:
+	print('1')
+	flat_speed -= _flat_speed
+	print(scaling_speed, " ", _scaling_speed)
+	scaling_speed = stepify( scaling_speed / _scaling_speed, 0.001 )
+	print (scaling_speed)
+	update_speed()
+
+

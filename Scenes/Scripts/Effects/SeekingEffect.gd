@@ -4,18 +4,18 @@ extends Effect
 class_name SeekingEffect
 
 export (float, 5, 5000, 5) var speed: float setget set_speed, get_speed
-export (float, 0, 500, 1) var radius: float = 0 setget set_radius, get_radius
+export (float, 0, 500, 1) var radius := 0.0 setget set_radius, get_radius
 export ( Texture ) var texture: Texture
 
 var seeker_script: Reference = preload("res://Scenes/Scripts/Effects/Seeker.gd")
 
 
 # Play the effect
-func play( _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
-	_create_seeker( _target )
+func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+	_create_seeker( _actor, _target )
 	
 
-func _create_seeker( _target: PhysicsBody2D ) -> void:
+func _create_seeker( _actor: PhysicsBody2D, _target: PhysicsBody2D ) -> void:
 	var seeker: Sprite = Sprite.new()
 	seeker.set_script( seeker_script )
 	seeker.actor = _actor
@@ -34,6 +34,8 @@ func on_seeker_hit( target: PhysicsBody2D ) -> void:
 			child.play( Vector2(), target )
 	
 
+
+# Setgetters -------------------------------------- #
 func set_radius( value: float ) -> void:
 	radius = stepify( value, 1 )
 	

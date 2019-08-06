@@ -18,11 +18,9 @@ export (float, 0, 1000, 25) var cast_range := 200.0
 var cooldown_timer: Timer
 var effects: Array
 var available_charges: int
-var actor: Node2D
 	
 
 func _ready() -> void:
-	actor = get_parent()
 	available_charges = charges
 	
 	# Create the cooldown timer
@@ -43,20 +41,20 @@ func add_effect( _effect: Effect ) -> void:
 	
 
 # Play all my effects
-func play_effects( mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
+func play_effects( actor: PhysicsBody2D, mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
 	for node in get_children():
 		if node is Effect:
-			node.play( mouse_posn, target )
+			node.play( actor, mouse_posn, target )
 	
 
 # General check to see if the skill is on cool down, or if I am crowd controlled
-func use( _mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
+func use( actor: PhysicsBody2D, _mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
 	if !available_charges:
 		return SkillStatus.ON_COOLDOWN
 	if actor.is_crowd_controlled() and !bypass_cc:
 		return SkillStatus.CROWD_CONTROLLED
 	
-	if target and !is_in_range( target ):
+	if target and !is_in_range( actor, target ):
 		return SkillStatus.QUEUED
 	
 	if cooldown_timer.is_stopped():
@@ -65,7 +63,7 @@ func use( _mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
 	return SkillStatus.USED
 	
 
-func is_in_range( _target: PhysicsBody2D ) -> bool:
+func is_in_range( actor: PhysicsBody2D, _target: PhysicsBody2D ) -> bool:
 	if cast_range == 0.0:
 		return true
 	return ( _target.get_position() - actor.get_position() ).length() <= cast_range + _target.get_radius()

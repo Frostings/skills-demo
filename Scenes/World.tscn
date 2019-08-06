@@ -86,7 +86,8 @@ script = ExtResource( 7 )
 
 [node name="SpeedBuff" type="Node2D" parent="Player/SkillE"]
 script = ExtResource( 11 )
-_duration = 2.0
+duration = 2.0
+stacks = 2
 _scaling_speed = 2.0
 
 [node name="Wall" type="AnimatedSprite" parent="."]

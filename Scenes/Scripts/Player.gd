@@ -2,16 +2,12 @@ extends Entity
 class_name Player
 
 
-#export (int, 0, 500, 5) var base_speed := 200
-
 var target := Vector2()
 var velocity := Vector2()
 var queued_target: Entity
 var hovered_target: Entity
 var queued_cast_range: float
 var queued_skill: Skill
-#var shield_amount: int = 0
-#var speed = 200 # TODO
 
 onready var BASIC_A: Skill = $BasicAttack
 onready var SKILL_Q: Skill = $SkillQ
@@ -19,12 +15,6 @@ onready var SKILL_W: Skill = $SkillW
 onready var SKILL_E: Skill = $SkillE
 
 onready var movement_queued = false
-
-# Stats
-#var flat_speed = 0
-#var scaling_speed = 1.0
-#func update_speed():
-#	speed = base_speed * scaling_speed + flat_speed
 
 
 func _ready() -> void:
@@ -109,20 +99,6 @@ func _use_skill( skill:Skill, _target: Entity ) -> int:
 	
 	return skill_status
 	
-#
-#func add_shield_amount( _shield_amount: int ) -> void:
-#	shield_amount += _shield_amount
-
-
-#func remove_shield_amount( _shield_amount: int ) -> void:
-#	shield_amount -= _shield_amount
-#	if shield_amount < 0:
-#		shield_amount = 0
-	
-
-#func is_crowd_controlled() -> bool:
-#	return false
-	
 
 func _on_enemy_hovered( _target: Entity ) -> void:
 	hovered_target = _target
@@ -131,16 +107,3 @@ func _on_enemy_hovered( _target: Entity ) -> void:
 func _on_enemy_unhovered( _target: Entity ) -> void:
 	if hovered_target == _target:
 		hovered_target = null
-	
-
-#func _on_speed_added( _flat_speed: float, _scaling_speed: float ) -> void:
-#	flat_speed += _flat_speed
-#	scaling_speed = stepify( scaling_speed * _scaling_speed, 0.001 )
-#	update_speed()
-#
-#
-#func _on_speed_expired( _flat_speed: float, _scaling_speed: float ) -> void:
-#	flat_speed -= _flat_speed
-#	scaling_speed = stepify( scaling_speed / _scaling_speed, 0.001 )
-#	update_speed()
-

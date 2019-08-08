@@ -101,8 +101,3 @@ var silenced := 0
 
 func set_silence( value: bool ) -> void:
 	silenced += 1 if value else -1
-	
-	
-	
-	
-	

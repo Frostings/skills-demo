@@ -3,7 +3,7 @@ extends Skill
 class_name TargetQueue, "res://Assets/CustomIcons/TargetQueue.png"
 
 
-func use( actor: PhysicsBody2D, mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
+func use( actor: Entity, mouse_posn: Vector2, target: Entity ) -> int:
 	var skill_status: int = .use( actor, mouse_posn, target )
 	
 	if skill_status != SkillStatus.USED and skill_status != SkillStatus.QUEUED:

@@ -12,11 +12,11 @@ export ( Texture ) var texture: Texture
 var shot_script: Reference = preload("res://Scenes/Scripts/Effects/Shot.gd")
 
 
-func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	_create_shot( _actor, _mouse_posn, _target )
 	
 
-func _create_shot( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D ) -> void:
+func _create_shot( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	var shot: Sprite = Sprite.new()
 	shot.set_script( shot_script )
 	
@@ -35,7 +35,7 @@ func _create_shot( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: Physics
 		print_debug( Utility.ERROR_SIGNAL )
 	
 
-func on_shot_hit( _effect: Effect, _actor: PhysicsBody2D, target: PhysicsBody2D ) -> void:
+func on_shot_hit( _effect: Effect, _actor: Entity, target: Entity ) -> void:
 	for child in get_children():
 		if child is Effect:
 			child.play( Vector2(), target )

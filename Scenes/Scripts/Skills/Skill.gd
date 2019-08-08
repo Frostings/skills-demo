@@ -41,17 +41,17 @@ func add_effect( _effect: Effect ) -> void:
 	
 
 # Play all my effects
-func play_effects( actor: PhysicsBody2D, mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
+func play_effects( actor: Entity, mouse_posn: Vector2, target: Entity ) -> void:
 	for node in get_children():
 		if node is Effect:
 			node.play( actor, mouse_posn, target )
 	
 
 # General check to see if the skill is on cool down, or if I am crowd controlled
-func use( actor: PhysicsBody2D, _mouse_posn: Vector2, target: PhysicsBody2D = null ) -> int:
+func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 	if !available_charges:
 		return SkillStatus.ON_COOLDOWN
-	if actor.is_crowd_controlled() and !bypass_cc:
+	if actor.silenced or actor.stunned and !bypass_cc:
 		return SkillStatus.CROWD_CONTROLLED
 	
 	if target and !is_in_range( actor, target ):
@@ -63,10 +63,10 @@ func use( actor: PhysicsBody2D, _mouse_posn: Vector2, target: PhysicsBody2D = nu
 	return SkillStatus.USED
 	
 
-func is_in_range( actor: PhysicsBody2D, _target: PhysicsBody2D ) -> bool:
+func is_in_range( actor: Entity, _target: Entity ) -> bool:
 	if cast_range == 0.0:
 		return true
-	return ( _target.get_position() - actor.get_position() ).length() <= cast_range + _target.get_radius()
+	return ( _target.position - actor.position ).length() <= cast_range + _target.get_radius()
 	
 
 # Add a charge when my skill goes off cooldown

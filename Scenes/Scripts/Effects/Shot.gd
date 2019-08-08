@@ -8,7 +8,7 @@ var radius: float setget set_radius, get_radius
 var skill_shot_range: float
 var fixed_range: bool
 
-var actor: PhysicsBody2D setget set_actor, get_actor
+var actor: Entity setget set_actor, get_actor
 	
 var destination: Vector2
 var tween: Tween
@@ -51,7 +51,7 @@ func _ready() -> void:
 		print_debug( Utility.ERROR_TWEEN_START )
 
 
-func _on_body_entered( _body: PhysicsBody2D ) -> void:
+func _on_body_entered( _body: Entity ) -> void:
 	if _body == actor: return
 	emit_signal( "skill_shot_hit", get_parent(), actor, _body )
 
@@ -59,7 +59,7 @@ func _on_body_entered( _body: PhysicsBody2D ) -> void:
 	queue_free()
 			
 
-func _on_skill_shot_reached( _actor: KinematicBody2D, _key: NodePath ) -> void:
+func _on_skill_shot_reached( _actor: Entity, _key: NodePath ) -> void:
 	hide()
 	queue_free()
 
@@ -82,9 +82,9 @@ func get_radius() -> float:
 	return radius
 
 
-func set_actor( value: PhysicsBody2D ) -> void:
+func set_actor( value: Entity ) -> void:
 	actor = value
 	
 
-func get_actor() -> PhysicsBody2D:
+func get_actor() -> Entity:
 	return actor

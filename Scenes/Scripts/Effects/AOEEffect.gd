@@ -9,7 +9,8 @@ onready var area: Area2D
 onready var bodies: Array = [] setget , get_bodies
 
 var _expire_timer: Timer
-var actor: PhysicsBody2D
+var actor: Entity
+
 
 func _ready() -> void:
 	# Find the Area2D node in our children
@@ -38,7 +39,7 @@ func _ready() -> void:
 	
 	
 # Play the effect
-func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	actor = _actor
 	area.monitoring = true
 	_expire_timer.start()
@@ -54,20 +55,20 @@ func get_bodies() -> Array:
 
 # TODO: Perhaps move this somewhere else
 class SortByName:
-	static func sort( a: PhysicsBody2D, b: PhysicsBody2D ) -> bool:
+	static func sort( a: Entity, b: Entity ) -> bool:
 		if a.name < b.name:
 			return true
 		return false
 
 
-func _on_body_entered( body: PhysicsBody2D ) -> void:
+func _on_body_entered( body: Entity ) -> void:
 	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )
 	bodies.insert( i, body )
 
 
-func _on_body_exited( body: PhysicsBody2D ) -> void:
+func _on_body_exited( body: Entity ) -> void:
 	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )

@@ -11,11 +11,11 @@ var seeker_script: Reference = preload("res://Scenes/Scripts/Effects/Seeker.gd")
 
 
 # Play the effect
-func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	_create_seeker( _actor, _target )
 	
 
-func _create_seeker( _actor: PhysicsBody2D, _target: PhysicsBody2D ) -> void:
+func _create_seeker( _actor: Entity, _target: Entity ) -> void:
 	var seeker: Sprite = Sprite.new()
 	seeker.set_script( seeker_script )
 	seeker.actor = _actor
@@ -28,7 +28,7 @@ func _create_seeker( _actor: PhysicsBody2D, _target: PhysicsBody2D ) -> void:
 	get_owner().add_child( seeker )
 	
 	
-func on_seeker_hit( target: PhysicsBody2D ) -> void:
+func on_seeker_hit( target: Entity ) -> void:
 	for child in get_children():
 		if child is Effect:
 			child.play( Vector2(), target )

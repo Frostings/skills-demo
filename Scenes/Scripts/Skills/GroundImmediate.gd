@@ -7,10 +7,10 @@ func _ready() -> void:
 	pass
 
 
-func use( actor: PhysicsBody2D, mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> int:
-	var skill_status: int = .use( actor, mouse_posn )
+func use( actor: Entity, mouse_posn: Vector2, _target: Entity ) -> int:
+	var skill_status: int = .use( actor, mouse_posn, _target )
 	if skill_status != SkillStatus.USED:
 		return skill_status
 	
-	play_effects( actor, mouse_posn )
+	play_effects( actor, mouse_posn, _target )
 	return skill_status

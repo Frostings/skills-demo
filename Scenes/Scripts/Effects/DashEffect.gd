@@ -7,7 +7,7 @@ export (float, 0, 5, 0.01) var speed: float
 export (bool) var fixed_range := true setget set_fixed_range, get_fixed_range
 
 var dash_tween: Tween
-var _target: PhysicsBody2D
+var _target: Entity
 
 
 func _ready():
@@ -18,7 +18,7 @@ func _ready():
 
 
 # Play the effect
-func play( _actor: PhysicsBody2D, mouse_posn: Vector2, target: PhysicsBody2D = null ) -> void:
+func play( _actor: Entity, mouse_posn: Vector2, target: Entity ) -> void:
 	var direction: Vector2
 	var destination: Vector2
 	_target = target

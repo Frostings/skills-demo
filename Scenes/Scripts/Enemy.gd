@@ -1,4 +1,6 @@
-extends KinematicBody2D
+extends Entity
+
+class_name Enemy
 
 signal enemy_hovered
 signal enemy_unhovered

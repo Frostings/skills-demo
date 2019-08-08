@@ -6,8 +6,8 @@ signal seeker_hit
 var speed: float setget set_speed, get_speed
 var radius: float = 0 setget set_radius, get_radius
 
-var actor: PhysicsBody2D setget set_actor, get_actor
-var target: PhysicsBody2D setget set_target, get_target
+var actor: Entity setget set_actor, get_actor
+var target: Entity setget set_target, get_target
 
 
 func _physics_process( _delta: float ) -> void:
@@ -22,11 +22,11 @@ func _physics_process( _delta: float ) -> void:
 
 
 # Setgetters -------------------------------------- #
-func set_target( value: PhysicsBody2D ) -> void:
+func set_target( value: Entity ) -> void:
 	target = value
 
 
-func get_target() -> PhysicsBody2D:
+func get_target() -> Entity:
 	return target
 	
 
@@ -46,9 +46,9 @@ func get_radius() -> float:
 	return speed
 
 
-func set_actor( value: PhysicsBody2D ) -> void:
+func set_actor( value: Entity ) -> void:
 	actor = value
 	
 
-func get_actor() -> PhysicsBody2D:
+func get_actor() -> Entity:
 	return actor

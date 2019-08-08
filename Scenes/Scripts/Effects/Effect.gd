@@ -14,11 +14,8 @@ enum Type {
 }
 
 
-#func _ready():
-#	_actor = get_parent().get_parent()
 
-
-func play( _actor: PhysicsBody2D, _mouse_posn: Vector2, _target: PhysicsBody2D = null ) -> void:
+func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	pass
 
 

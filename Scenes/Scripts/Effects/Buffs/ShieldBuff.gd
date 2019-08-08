@@ -1,25 +1,21 @@
 extends BuffEffect
 class_name ShieldBuff
 
-signal shield_added
-signal shield_expired
-
 
 export (int, 10) var _shield_amount: int = 1 setget set_shield_amount, get_shield_amount
 
 
 # Play the effect
-func play( _actor: PhysicsBody2D = null, _mouse_posn: Vector2 = Vector2(), _target: PhysicsBody2D = null ) -> void:
-	if !.play():
+func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
+	if !.play( _actor, _mouse_posn, _target ):
 		return
-	emit_signal( "shield_added", _shield_amount )
-	#.play()
+	_target.add_shield( _shield_amount )
 	
 
 # End the effect. generally it's the inverse operation of play()
-func end() -> void:
-	.end()
-	emit_signal( "shield_expired", _shield_amount * ( stacks - _stacks_available ) )
+func end( _target: Entity ) -> void:
+	_target.remove_shield( _shield_amount )
+	.end( _target )
 
 
 

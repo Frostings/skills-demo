@@ -55,20 +55,20 @@ func get_bodies() -> Array:
 
 # TODO: Perhaps move this somewhere else
 class SortByName:
-	static func sort( a: Entity, b: Entity ) -> bool:
+	static func sort( a: PhysicsBody2D, b: PhysicsBody2D ) -> bool:
 		if a.name < b.name:
 			return true
 		return false
 
 
-func _on_body_entered( body: Entity ) -> void:
+func _on_body_entered( body: PhysicsBody2D ) -> void:
 	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )
 	bodies.insert( i, body )
 
 
-func _on_body_exited( body: Entity ) -> void:
+func _on_body_exited( body: PhysicsBody2D ) -> void:
 	if body == actor:
 		return
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )

@@ -59,7 +59,7 @@ func _on_dash_completed( _actor: KinematicBody2D, _key: NodePath ) -> void:
 	# Play any effects in its children when finished
 	for child in get_children():
 		if child is Effect:
-			child.play( _actor.position, _target )
+			child.play( _actor.position, Vector2(), _target )
 
 
 

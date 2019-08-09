@@ -5,6 +5,16 @@ class_name Entity
 # STATS
 #######################################################################
 
+
+# RADIUS
+#######################################################################
+export (int, 0, 100, 5) var radius: int = 35 setget , get_radius
+
+
+func get_radius() -> int:
+	return radius
+	
+
 # SPEED
 #######################################################################
 export (int, 0, 1000, 5) var base_speed := 200
@@ -32,6 +42,7 @@ func update_speed() -> void:
 
 func _ready() -> void:
 	update_speed()
+	$CollisionShape2D.get_shape().set_radius( radius )
 
 
 # CRIT CHANCE

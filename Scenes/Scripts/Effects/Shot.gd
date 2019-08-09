@@ -7,7 +7,7 @@ var speed: float setget set_speed, get_speed
 var radius: float setget set_radius, get_radius
 var skill_shot_range: float
 var fixed_range: bool
-
+var num_targets: int
 var actor: Entity setget set_actor, get_actor
 	
 var destination: Vector2
@@ -18,7 +18,6 @@ onready var collision_shape_2d: CollisionShape2D = CollisionShape2D.new()
 
 
 func _ready() -> void:
-	
 	tween = Tween.new()
 	if tween.connect( "tween_completed", self, "_on_skill_shot_reached" ):
 		print_debug( Utility.ERROR_SIGNAL )
@@ -30,7 +29,7 @@ func _ready() -> void:
 	collision_shape_2d.shape = CircleShape2D.new()
 	collision_shape_2d.shape.radius = radius
 	area.add_child( collision_shape_2d )
-	add_child(area)
+	add_child( area )
 	if area.connect( "body_entered", self, "_on_body_entered" ):
 		print_debug( Utility.ERROR_SIGNAL )
 
@@ -53,10 +52,13 @@ func _ready() -> void:
 
 func _on_body_entered( _body: Entity ) -> void:
 	if _body == actor: return
-	emit_signal( "skill_shot_hit", get_parent(), actor, _body )
-
-	hide()
-	queue_free()
+	emit_signal( "skill_shot_hit", get_parent(), actor, position, _body )
+	# Piercing
+	if num_targets > 0:
+		num_targets -= 1
+	if num_targets == 0:
+		hide()
+		queue_free()
 			
 
 func _on_skill_shot_reached( _actor: Entity, _key: NodePath ) -> void:

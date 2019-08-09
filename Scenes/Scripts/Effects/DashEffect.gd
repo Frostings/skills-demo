@@ -2,7 +2,7 @@ extends Effect
 class_name DashEffect
 
 
-export (float, 0, 500, 5) var dash_range: float setget set_dash_range, get_dash_range
+export (float, 0, 500, 5) var dash_range := 100.0 setget set_dash_range, get_dash_range
 export (float, 0, 5, 0.01) var speed: float
 export (bool) var fixed_range := true setget set_fixed_range, get_fixed_range
 

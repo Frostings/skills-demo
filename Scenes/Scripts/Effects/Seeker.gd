@@ -6,7 +6,7 @@ signal seeker_hit
 var speed: float setget set_speed, get_speed
 var radius: float = 0 setget set_radius, get_radius
 
-var actor: Entity setget set_actor, get_actor
+#var actor: Entity setget set_actor, get_actor
 var target: Entity setget set_target, get_target
 
 
@@ -15,7 +15,7 @@ func _physics_process( _delta: float ) -> void:
 	position += ( target.position - position ).normalized() * speed * _delta
 	look_at( target.position )
 	if ( target.position - position ).length() <= target.radius + radius:
-		emit_signal( "seeker_hit", target )
+		emit_signal( "seeker_hit", position, target )
 		hide()
 		queue_free()
 
@@ -46,9 +46,9 @@ func get_radius() -> float:
 	return speed
 
 
-func set_actor( value: Entity ) -> void:
-	actor = value
-	
-
-func get_actor() -> Entity:
-	return actor
+#func set_actor( value: Entity ) -> void:
+#	actor = value
+#
+#
+#func get_actor() -> Entity:
+#	return actor

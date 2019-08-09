@@ -18,20 +18,20 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 func _create_seeker( _actor: Entity, _target: Entity ) -> void:
 	var seeker: Sprite = Sprite.new()
 	seeker.set_script( seeker_script )
-	seeker.actor = _actor
+	#seeker.actor = _actor
 	seeker.texture = texture
 	seeker.target = _target
 	seeker.position = global_position
 	seeker.speed = speed
-	if seeker.connect( "seeker_hit", self, "on_seeker_hit" ):
+	if seeker.connect( "seeker_hit", self, "on_seeker_hit", [_actor] ):
 		print_debug( Utility.ERROR_SIGNAL )
 	get_owner().add_child( seeker )
 	
 	
-func on_seeker_hit( target: Entity ) -> void:
+func on_seeker_hit( posn: Vector2, target: Entity, actor: Entity ) -> void:
 	for child in get_children():
 		if child is Effect:
-			child.play( Vector2(), target )
+			child.play( actor, posn, target )
 	
 
 

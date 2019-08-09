@@ -2,6 +2,11 @@ extends KinematicBody2D
 class_name Entity
 
 
+func die() -> void:
+	hide()
+	queue_free()
+	
+
 # STATS
 #######################################################################
 
@@ -43,6 +48,23 @@ func update_speed() -> void:
 func _ready() -> void:
 	update_speed()
 	$CollisionShape2D.get_shape().set_radius( radius )
+
+
+# HEALTH
+#######################################################################
+
+export (int, 1, 1000, 1) var max_health := 10
+var current_health := max_health
+
+
+func add_health( value: int ) -> void:
+	current_health = int( min( max_health, current_health + value ) )
+
+
+func remove_health( value: int ) -> void:
+	current_health = int( max( 0, current_health - value ) )
+	if current_health == 0:
+		die()
 
 
 # CRIT CHANCE

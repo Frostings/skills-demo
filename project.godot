@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/Scripts/Effects/BuffEffect.gd"
 }, {
 "base": "Effect",
+"class": "DamageEffect",
+"language": "GDScript",
+"path": "res://Scenes/Scripts/Effects/DamageEffect.gd"
+}, {
+"base": "Effect",
 "class": "DashEffect",
 "language": "GDScript",
 "path": "res://Scenes/Scripts/Effects/DashEffect.gd"
@@ -103,6 +108,7 @@ _global_script_class_icons={
 "AOEEffect": "",
 "BasicAttack": "",
 "BuffEffect": "",
+"DamageEffect": "",
 "DashEffect": "",
 "Effect": "res://Assets/CustomIcons/Effect.png",
 "Enemy": "",

@@ -47,7 +47,9 @@ func update_speed() -> void:
 
 func _ready() -> void:
 	update_speed()
-	$CollisionShape2D.get_shape().set_radius( radius )
+	var shape: Shape2D = $CollisionShape2D.get_shape()
+	if shape is CircleShape2D:
+		shape.set_radius( radius )
 
 
 # HEALTH
@@ -57,7 +59,7 @@ export (int, 1, 1000, 1) var max_health := 10
 var current_health := max_health
 
 
-func add_health( value: int ) -> void:
+func heal( value: int ) -> void:
 	current_health = int( min( max_health, current_health + value ) )
 
 
@@ -67,17 +69,13 @@ func remove_health( value: int ) -> void:
 		die()
 
 
-# CRIT CHANCE
-#######################################################################
-export (int, 0, 100, 1) var crit_chance := 5
-
-
-func add_crit( _crit_chance: int ) -> void:
-	crit_chance = int( min( 100, crit_chance + _crit_chance ) )
-
-
-func remove_crit( _crit_chance: int ) -> void:
-	crit_chance = int( max( 0, crit_chance - _crit_chance ) )
+func take_damage( value: int ) -> void:
+	print("took dmg: ", value )
+	if shield_amount - value < 0:
+		shield_amount = 0
+		remove_health( value - shield_amount )
+	else:
+		shield_amount -= value
 
 
 # SHIELD
@@ -91,6 +89,19 @@ func add_shield( _amount: int ) -> void:
 	
 func remove_shield( _amount: int ) -> void:
 	shield_amount = int ( max( 0, shield_amount - _amount ) )
+
+
+# CRIT CHANCE
+#######################################################################
+export (int, 0, 100, 1) var crit_chance := 5
+
+
+func add_crit( _crit_chance: int ) -> void:
+	crit_chance = int( min( 100, crit_chance + _crit_chance ) )
+
+
+func remove_crit( _crit_chance: int ) -> void:
+	crit_chance = int( max( 0, crit_chance - _crit_chance ) )
 
 	
 # ATTACK SPEED

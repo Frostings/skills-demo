@@ -7,8 +7,6 @@ onready var SKILL_Q: Skill = $SkillQ
 onready var SKILL_W: Skill = $SkillW
 onready var SKILL_E: Skill = $SkillE
 
-#var target: Vector2
-#var velocity: Vector2
 var hovered_target: Entity
 
 
@@ -40,7 +38,6 @@ func _physics_process( _delta: float ) -> void:
 		if _use_skill( SKILL_E, mouse_posn, hovered_target ):
 			pass
 	
-	#move_to_target()
 	# TODO: move this to Entity
 	if movement_queued: #if queued_target or queued_position:
 		if queued_skill:
@@ -61,9 +58,6 @@ func _physics_process( _delta: float ) -> void:
 
 	move_slide( _delta )
 
-
-
-	
 
 func _on_enemy_hovered( _target: Entity ) -> void:
 	hovered_target = _target

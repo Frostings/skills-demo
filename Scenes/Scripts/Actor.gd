@@ -14,7 +14,6 @@ var velocity: Vector2
 func cancel_casting() -> void:
 	queued_target = null
 	queued_skill = null
-	#queued_position = null
 
 
 # Our own move_and_slide function to help us with collisions

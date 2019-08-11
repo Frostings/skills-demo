@@ -5,8 +5,6 @@ signal seeker_hit
 
 var speed: float setget set_speed, get_speed
 var radius: float = 0 setget set_radius, get_radius
-
-#var actor: Entity setget set_actor, get_actor
 var target: Entity setget set_target, get_target
 
 
@@ -44,11 +42,3 @@ func set_radius( value: float ) -> void:
 
 func get_radius() -> float:
 	return speed
-
-
-#func set_actor( value: Entity ) -> void:
-#	actor = value
-#
-#
-#func get_actor() -> Entity:
-#	return actor

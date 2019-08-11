@@ -6,7 +6,7 @@ export (int, 1, 100, 1) var damage := 1 setget set_damage, get_damage
 
 
 func play( _actor: Entity, _posn: Vector2, _target: Entity ) -> void:
-	_target.remove_health( damage )
+	_target.take_damage( damage )
 
 
 

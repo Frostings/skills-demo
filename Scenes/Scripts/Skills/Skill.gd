@@ -54,7 +54,10 @@ func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 	if actor.silenced or actor.stunned and !bypass_cc:
 		return SkillStatus.CROWD_CONTROLLED
 	
-	if target and !is_in_range( actor, target ):
+	if target and !is_target_in_range( actor, target ):
+		return SkillStatus.QUEUED
+	
+	if !target and !is_posn_in_range( actor, _mouse_posn ):
 		return SkillStatus.QUEUED
 	
 	if cooldown_timer.is_stopped():
@@ -63,11 +66,17 @@ func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 	return SkillStatus.USED
 	
 
-func is_in_range( actor: Entity, _target: Entity ) -> bool:
+func is_target_in_range( actor: Entity, _target: Entity ) -> bool:
 	if cast_range == 0.0:
 		return true
 	return ( _target.position - actor.position ).length() <= cast_range + _target.get_radius()
 	
+
+func is_posn_in_range( actor: Entity, _posn: Vector2 ) -> bool:
+	if cast_range == 0.0:
+		return true
+	return ( _posn - actor.position ).length() <= cast_range
+
 
 # Add a charge when my skill goes off cooldown
 func _on_cooldown_timer_timeout() -> void:

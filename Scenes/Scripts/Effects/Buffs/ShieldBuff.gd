@@ -10,8 +10,8 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	if !.play( _actor, _mouse_posn, _target ):
 		return
 	_target.add_shield( _shield_amount )
-	if _target.connect( "damage_taken", self, "on_damage_taken" ):
-		print_debug( Utility.ERROR_SIGNAL )
+#	if _target.connect( "damage_taken", self, "on_damage_taken" ):
+#		print_debug( Utility.ERROR_SIGNAL )
 
 # End the effect. generally it's the inverse operation of play()
 func end( _target: Entity ) -> void:
@@ -19,9 +19,9 @@ func end( _target: Entity ) -> void:
 	.end( _target )
 
 
-func on_damage_taken( amount: int ) -> void:
-	if _shield_amount - amount < 0:
-		_shield_amount = 0
+#func on_damage_taken( amount: int ) -> void:
+#	if _shield_amount - amount < 0:
+#		_shield_amount = 0
 		
 # Setgetters -------------------------------------- #
 func get_shield_amount() -> int:

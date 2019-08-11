@@ -1,5 +1,4 @@
-extends Entity
-
+extends Actor
 class_name Enemy
 
 signal enemy_hovered

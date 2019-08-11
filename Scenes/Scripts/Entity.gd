@@ -1,3 +1,4 @@
+# An Entity is any game object that can interact with skills (i.e. it can be destroyed)
 extends KinematicBody2D
 class_name Entity
 
@@ -5,7 +6,7 @@ class_name Entity
 func die() -> void:
 	hide()
 	queue_free()
-	
+
 
 # STATS
 #######################################################################

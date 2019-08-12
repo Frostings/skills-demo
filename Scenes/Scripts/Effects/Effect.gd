@@ -14,7 +14,6 @@ enum Type {
 }
 
 
-
 func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	pass
 

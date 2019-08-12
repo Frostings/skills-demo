@@ -7,7 +7,7 @@ export (float, 5, 5000, 5) var speed: float setget set_speed, get_speed
 export (float, 0, 500, 1) var radius := 0.0 setget set_radius, get_radius
 export ( Texture ) var texture: Texture
 
-var seeker_script: Reference = preload("res://Scenes/Scripts/Effects/Seeker.gd")
+var seeker_script: Reference = preload("res://Skills/Scripts/Effects/Seeker.gd")
 
 
 # Play the effect

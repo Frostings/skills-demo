@@ -3,10 +3,17 @@ extends KinematicBody2D
 class_name Entity
 
 
+func _ready() -> void:
+	update_speed()
+	var shape: Shape2D = $CollisionShape2D.get_shape()
+	if shape is CircleShape2D:
+		shape.set_radius( radius )
+
+
 func die() -> void:
 	hide()
 	queue_free()
-
+	
 
 # STATS
 #######################################################################
@@ -44,13 +51,6 @@ func remove_speed( _flat_speed: int, _scaling_speed: float ) -> void:
 
 func update_speed() -> void:
 	final_speed = int( stepify( base_speed * scaling_speed + flat_speed, 1 ) )
-
-
-func _ready() -> void:
-	update_speed()
-	var shape: Shape2D = $CollisionShape2D.get_shape()
-	if shape is CircleShape2D:
-		shape.set_radius( radius )
 
 
 # HEALTH

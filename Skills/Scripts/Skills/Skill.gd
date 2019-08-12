@@ -1,5 +1,5 @@
 extends Node2D
-class_name Skill, "res://Assets/CustomIcons/Skill.png"
+class_name Skill, "res://Skills/Assets/CustomIcons/Skill.png"
 
 
 enum SkillStatus {

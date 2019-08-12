@@ -11,7 +11,7 @@ There are no compiled binaries available. It must run with [Godot](https://godot
 
 # How it works
 A skill is defined as how it's cast, and what its Effects are. 
-Skills begin as either requiring a target (`TargetQueue`) or pressing anywhere (`GroundImmediate`). They barely do anything by themselves. They will only report notices such as Out of Range, or On Cooldown.
+Skills begin as either requiring a target (`Target*`) or pressing anywhere (`Ground*`). They do minimal things by themselves, such as report Out of Range, or On Cooldown.
 If the skill is able to cast, it will begin playing any Effects of its children.
 
 For example, having a skill with the following tree:
@@ -22,9 +22,9 @@ For example, having a skill with the following tree:
 Will create a dash and shield toward the selected target. 
 
 Many effects can chain other effects:
-* GroundImmediate
+* GroundInstant
     * SkillshotEffect
         * AOEEffect
-            * BurnEffect
+            * DOTEffect
 
 This will create a skill shot that explodes for burn damage in an area of effect. 

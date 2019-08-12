@@ -1,5 +1,5 @@
 extends Node2D
-class_name Effect, "res://Assets/CustomIcons/Effect.png"
+class_name Effect, "res://Skills/Assets/CustomIcons/Effect.png"
 
 
 const STEP = 0.001

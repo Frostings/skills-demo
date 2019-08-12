@@ -1,6 +1,6 @@
 # TargetQueue must have selected target. It will walk towards the target if not in range and queue the skill.
 extends Skill
-class_name TargetQueue, "res://Assets/CustomIcons/TargetQueue.png"
+class_name TargetQueue, "res://Skills/Assets/CustomIcons/TargetQueue.png"
 
 
 # TargetQueue does not depend on _mouse_posn

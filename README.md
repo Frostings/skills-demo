@@ -1,5 +1,5 @@
 # Skill demo
-This is a demo for moba-like skills using Godot 3.1
+This is a demo for moba-like skills using 2D Godot 3.1
 
 The code will be kept as general as possible, but the library is built for a specific gamestyle in mind.
 

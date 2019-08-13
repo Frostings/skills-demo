@@ -1,6 +1,6 @@
 # TargetQueue must have selected target. It will walk towards the target if not in range and queue the skill.
 extends Skill
-class_name GroundQueue, "res://Assets/CustomIcons/TargetQueue.png"
+class_name GroundQueue, "res://Skills/Assets/CustomIcons/TargetQueue.png"
 
 
 # GroundQueue does not depend on _target

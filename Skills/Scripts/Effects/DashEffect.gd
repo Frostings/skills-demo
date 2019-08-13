@@ -22,10 +22,8 @@ func play( _actor: Entity, mouse_posn: Vector2, target: Entity ) -> void:
 	var direction: Vector2
 	var destination: Vector2
 	_target = target
-	
 	# We have a target queued. Dash to it.
-	if target:
-		
+	if target != _actor:
 		direction = target.get_position() - _actor.get_position()
 		direction = direction.normalized()
 		

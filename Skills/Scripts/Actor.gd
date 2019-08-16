@@ -15,6 +15,7 @@ var queued_position: Vector2
 # My queued skill. It will play this once I reach my destination
 var queued_skill: Skill
 
+
 func cancel_casting() -> void:
 	queued_target = null
 	queued_skill = null

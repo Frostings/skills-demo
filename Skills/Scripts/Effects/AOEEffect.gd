@@ -3,7 +3,8 @@ extends Effect
 class_name AOEEffect
 
 
-export (float, 0, 5, 0.1) var duration := 1
+export (float, 0, 5, 0.1) var duration := 1.0
+export (int, 0, 1000) var fixed_range := 0
 
 onready var area: Area2D
 onready var bodies: Array = [] setget , get_bodies
@@ -29,12 +30,15 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	var posn := _mouse_posn
 	if _target and _target != _actor:
 		posn = _target.position
+	elif fixed_range:
+		posn = _actor.global_position + ( _mouse_posn - _actor.global_position ).normalized() * fixed_range
 	actor = _actor
 	
 	# Create the area
 	var _area := area.duplicate()
 	_area.position = posn
 	_area.monitoring = true
+	_area.show()
 	if _area.connect( "body_entered", self, "_on_body_entered" ):
 		print_debug( Utility.ERROR_SIGNAL )
 	if _area.connect( "body_exited", self, "_on_body_exited" ):
@@ -46,12 +50,12 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	_expire_timer.name = "ExpireTimer"
 	_expire_timer.one_shot = true
 	_expire_timer.wait_time = duration
+	
 	if _expire_timer.connect( "timeout", self, "_on_expire_timer_timeout", [_area] ):
 		print_debug( Utility.ERROR_SIGNAL )
 	_area.add_child( _expire_timer )
 	_expire_timer.start()
-
-		
+	
 
 func _on_expire_timer_timeout( _area: Area2D ) -> void:
 	_area.monitoring = false

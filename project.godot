@@ -131,7 +131,7 @@ _global_script_class_icons={
 "Enemy": "",
 "Entity": "",
 "GroundInstant": "res://Skills/Assets/CustomIcons/GroundInstant.png",
-"GroundQueue": "",
+"GroundQueue": "res://Skills/Assets/CustomIcons/TargetQueue.png",
 "Player": "",
 "Seeker": "",
 "SeekingEffect": "",

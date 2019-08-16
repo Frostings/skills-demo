@@ -8,7 +8,7 @@ export (bool) var fixed_range := true setget set_fixed_range, get_fixed_range
 
 var dash_tween: Tween
 var _target: Entity
-
+var mouse_posn: Vector2
 
 func _ready():
 	dash_tween = Tween.new()
@@ -18,7 +18,8 @@ func _ready():
 
 
 # Play the effect
-func play( _actor: Entity, mouse_posn: Vector2, target: Entity ) -> void:
+func play( _actor: Entity, _mouse_posn: Vector2, target: Entity ) -> void:
+	mouse_posn = _mouse_posn
 	var direction: Vector2
 	var destination: Vector2
 	_target = target
@@ -57,7 +58,7 @@ func _on_dash_completed( _actor: KinematicBody2D, _key: NodePath ) -> void:
 	# Play any effects in its children when finished
 	for child in get_children():
 		if child is Effect:
-			child.play( _actor.position, Vector2(), _target )
+			child.play( _actor, mouse_posn, _target )
 
 
 

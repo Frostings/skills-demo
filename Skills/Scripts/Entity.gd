@@ -57,7 +57,7 @@ func update_speed() -> void:
 #######################################################################
 
 export (int, 1, 1000, 1) var max_health := 10
-var current_health := max_health
+onready var current_health := max_health
 
 
 func heal( value: int ) -> void:

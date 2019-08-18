@@ -2,7 +2,7 @@ extends Effect
 class_name SkillShotEffect
 
 
-export (float, 0, 500, 5) var skill_shot_range := 100.0 setget set_skill_shot_range, get_skill_shot_range
+export (float, 0, 5000, 5) var skill_shot_range := 100.0 setget set_skill_shot_range, get_skill_shot_range
 export (float, 0, 5, 0.01) var speed := 0.1 setget set_speed, get_speed
 export (float, 0, 500, 1) var radius := 50.0 setget set_radius, get_radius
 export (int, -1, 10) var num_targets := 1 setget set_num_targets, get_num_targets

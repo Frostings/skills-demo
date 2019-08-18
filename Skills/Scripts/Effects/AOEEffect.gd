@@ -5,7 +5,7 @@ class_name AOEEffect
 
 export (float, 0, 5, 0.1) var duration := 1.0
 export (int, 0, 1000) var fixed_range := 0
-
+export (int, "Ground", "Actor", "Target") var attach_to := 0
 onready var area: Area2D
 onready var bodies: Array = [] setget , get_bodies
 
@@ -20,46 +20,57 @@ func _ready() -> void:
 			break
 	if area == null:
 		print_debug( Utility.ERROR_NO_NODE )
-	
+	area.hide()
 	area.monitoring = false
 	pass
 
 	
 # Play the effect
 func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
-	var posn := _mouse_posn
-	if _target and _target != _actor:
-		posn = _target.position
-	elif fixed_range:
-		posn = _actor.global_position + ( _mouse_posn - _actor.global_position ).normalized() * fixed_range
 	actor = _actor
 	
 	# Create the area
-	var _area := area.duplicate()
-	_area.position = posn
-	_area.monitoring = true
+	var _area: Area2D = area.duplicate()
 	_area.show()
 	if _area.connect( "body_entered", self, "_on_body_entered" ):
 		print_debug( Utility.ERROR_SIGNAL )
 	if _area.connect( "body_exited", self, "_on_body_exited" ):
 		print_debug( Utility.ERROR_SIGNAL )
-	get_owner().add_child( _area )
+	
+	match attach_to:
+		0: # Ground
+			_area.position = _mouse_posn
+			get_owner().add_child( _area )
+		1: # Actor
+			_area.position = ( _mouse_posn - _actor.position ).normalized() * fixed_range
+			_actor.add_child( _area )
+		2: # Target
+			_area.position = Vector2()
+			_target.add_child( _area )
 	
 	# Create the expire timer
 	var _expire_timer := Timer.new()
 	_expire_timer.name = "ExpireTimer"
 	_expire_timer.one_shot = true
 	_expire_timer.wait_time = duration
-	
+	_expire_timer.autostart = false
 	if _expire_timer.connect( "timeout", self, "_on_expire_timer_timeout", [_area] ):
 		print_debug( Utility.ERROR_SIGNAL )
 	_area.add_child( _expire_timer )
-	_expire_timer.start()
 	
+	# Create the delay timer
+	var _delay_timer := Timer.new()
+	_delay_timer.name = "DelayTimer"
+	_delay_timer.one_shot = true
+	_delay_timer.wait_time = delay
+	_delay_timer.autostart = true
+	if _delay_timer.connect( "timeout", self, "_on_delay_timer_timeout", [ _area, _delay_timer, _expire_timer ] ):
+		print_debug( Utility.ERROR_SIGNAL )
+	_area.add_child( _delay_timer )
+
 
 func _on_expire_timer_timeout( _area: Area2D ) -> void:
 	_area.monitoring = false
-	_area.hide()
 	_area.queue_free()
 
 
@@ -92,3 +103,8 @@ func _on_body_exited( body: PhysicsBody2D ) -> void:
 	var i: int = bodies.bsearch_custom( body, SortByName, "sort" )
 	bodies.remove( i )
 
+
+func _on_delay_timer_timeout( _area: Area2D, _delay_timer: Timer, _expire_timer: Timer ) -> void:
+	_area.monitoring = true
+	_expire_timer.start()
+	_delay_timer.queue_free()

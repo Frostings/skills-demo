@@ -3,7 +3,7 @@ extends Effect
 class_name AOEEffect
 
 
-export (float, 0, 5, 0.1) var duration := 1.0
+export (float, 0.01, 5, 0.01) var duration := 1.0
 export (int, 0, 1000) var fixed_range := 0
 export (int, "Ground", "Actor", "Target") var attach_to := 0
 onready var area: Area2D
@@ -40,7 +40,7 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	match attach_to:
 		0: # Ground
 			_area.position = _mouse_posn
-			get_owner().add_child( _area )
+			get_owner().call_deferred( "add_child", _area )
 		1: # Actor
 			_area.position = ( _mouse_posn - _actor.position ).normalized() * fixed_range
 			_actor.add_child( _area )

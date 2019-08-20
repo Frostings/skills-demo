@@ -4,7 +4,7 @@ class_name Effect, "res://Skills/Assets/CustomIcons/Effect.png"
 
 const STEP = 0.001
 
-export (float, 0, 5, 0.01) var delay := 0.0 setget set_delay, get_delay
+export (float, 0.01, 5, 0.01) var delay := 0.01 setget set_delay, get_delay
 
 enum Type {
 	DASH,

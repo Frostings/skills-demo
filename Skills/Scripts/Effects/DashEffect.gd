@@ -11,6 +11,7 @@ var _target: Entity
 var mouse_posn: Vector2
 
 func _ready():
+	
 	dash_tween = Tween.new()
 	if dash_tween.connect( "tween_completed", self, "_on_dash_completed" ):
 		print_debug( Utility.ERROR_SIGNAL )
@@ -38,10 +39,10 @@ func play( _actor: Entity, _mouse_posn: Vector2, target: Entity ) -> void:
 	else:
 		direction = mouse_posn - _actor.get_position()
 		if !fixed_range and direction.length() <= dash_range:
-			destination = _actor.get_position() + direction
+			destination = _actor.position + direction
 		else:
 			direction = direction.normalized()
-			destination = _actor.get_position() + direction * dash_range
+			destination = _actor.position + direction * dash_range
 
 	if !dash_tween.interpolate_property( _actor, "position", _actor.get_position(), destination, speed,
 			Tween.TRANS_LINEAR, Tween.EASE_OUT_IN, delay ):
@@ -64,7 +65,7 @@ func _on_dash_completed( _actor: KinematicBody2D, _key: NodePath ) -> void:
 
 # Setgetters -------------------------------------- #
 func set_dash_range( value: float ) -> void:
-	dash_range = stepify( value, 5 )
+	dash_range = stepify( value, 1 )
 
 
 func get_dash_range() -> float:

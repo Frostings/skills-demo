@@ -14,8 +14,10 @@ export (float, 0, 500, 0.25) var cooldown := 1.0
 export (int, 1, 10) var charges := 1
 export (bool) var bypass_cc := false
 export (float, 0, 1000, 25) var cast_range := 200.0
+export (float, 0.01, 5, 0.01) var animation_delay := 0.01
 
 var cooldown_timer: Timer
+var animation_timer: Timer
 var effects: Array
 var available_charges: int
 	
@@ -27,14 +29,27 @@ func _ready() -> void:
 	cooldown_timer = Timer.new()
 	if cooldown_timer.connect( "timeout", self, "_on_cooldown_timer_timeout" ):
 		print_debug( Utility.ERROR_SIGNAL )
-	cooldown_timer.set_one_shot( false )
-	cooldown_timer.set_autostart( false )
-	cooldown_timer.set_wait_time( cooldown )
+	cooldown_timer.one_shot = false
+	cooldown_timer.autostart = false
+	cooldown_timer.wait_time = cooldown
 	add_child( cooldown_timer )
+	
+	# Create the animation timer
+	animation_timer = Timer.new()
+	animation_timer.one_shot = true
+	animation_timer.autostart = false
+	animation_timer.wait_time = animation_delay
+	add_child( animation_timer )
+
+
+# Cancel the skill we're animating
+func cancel() -> void:
+	animation_timer.stop()
 
 
 # Add an effect to the skill
 # TODO: distinguish between different effects (when they go off)
+# TODO: Deprecate?
 func add_effect( _effect: Effect ) -> void:
 	effects += [ _effect ]
 	add_child( _effect )
@@ -60,9 +75,16 @@ func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 	if !target and !is_posn_in_range( actor, _mouse_posn ):
 		return SkillStatus.QUEUED
 	
+	if animation_timer.is_connected( "timeout", self, "play_effects" ):
+		animation_timer.disconnect( "timeout", self, "play_effects" )
+	if animation_timer.connect( "timeout", self, "play_effects", [actor, _mouse_posn, target] ):
+		print_debug( Utility.ERROR_SIGNAL )
+	
 	if cooldown_timer.is_stopped():
 		cooldown_timer.start()
 	available_charges -= 1
+	if animation_timer.is_stopped():
+		animation_timer.start()
 	return SkillStatus.USED
 	
 
@@ -85,6 +107,8 @@ func _on_cooldown_timer_timeout() -> void:
 		cooldown_timer.stop()
 	
 
+#func _on_animation_timer_timeout( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
+	
 func is_on_cooldown() -> bool:
 	return available_charges == 0
 	

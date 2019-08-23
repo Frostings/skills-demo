@@ -16,8 +16,15 @@ var queued_position: Vector2
 var queued_skill: Skill
 
 
+func _physics_process( _delta: float) -> void:
+	if queued_skill:
+		if is_instance_valid( queued_target ):
+			queued_position = queued_target.position
+		if _use_skill( queued_skill, queued_position, queued_target ):
+			pass
+
+
 func cancel_casting() -> void:
-	queued_target = null
 	queued_skill = null
 	movement_queued = false
 
@@ -26,8 +33,8 @@ func cancel_casting() -> void:
 func move_slide( dest: Vector2, _delta: float ) -> void:
 	if !movement_queued:
 		return
-	var velocity := (dest - position).normalized() * final_speed
-	if ( dest - get_position() ).length() > 5:
+	var velocity := ( dest - global_position ).normalized() * final_speed
+	if ( dest - global_position ).length() > 5:
 		velocity = move_and_slide( velocity )
 		for i in range( get_slide_count() ):
 			var collision: KinematicCollision2D = get_slide_collision( i )
@@ -35,6 +42,7 @@ func move_slide( dest: Vector2, _delta: float ) -> void:
 				pass
 	else:
 		movement_queued = false
+		queued_position = position
 
 
 # queue a target to attack or use a skill on
@@ -55,8 +63,7 @@ func _use_skill( skill: Skill, posn: Vector2, _target: Entity ) -> int:
 	var skill_status := skill.use( self, posn, _target )
 	match skill_status:
 		Skill.SkillStatus.USED:
-			if !( skill is BasicAttack ):
-				cancel_casting()
+			cancel_casting()
 		Skill.SkillStatus.QUEUED:
 			if _target:
 				queue_target( _target, skill )

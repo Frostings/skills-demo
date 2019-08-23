@@ -11,7 +11,7 @@ export (bool) var fixed_range := true
 
 export ( Texture ) var texture: Texture
 
-var shot_script: Reference = preload("res://Skills/Scripts/Effects/Shot.gd")
+var shot_script: Reference = preload( "res://Skills/Scripts/Effects/Shot.gd" )
 
 
 func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:

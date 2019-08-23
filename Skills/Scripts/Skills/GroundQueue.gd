@@ -10,10 +10,7 @@ func use( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> int:
 	if skill_status != SkillStatus.USED and skill_status != SkillStatus.QUEUED:
 		return skill_status
 	
-	# I am in range. Use the skill
-	if skill_status == SkillStatus.USED:
-		play_effects( _actor, _mouse_posn, null )
-	# I am not in range. I must queue walking towards my target
-	else:
+	if skill_status != SkillStatus.USED:
 		_actor.queue_position( _mouse_posn, self )
+	
 	return skill_status

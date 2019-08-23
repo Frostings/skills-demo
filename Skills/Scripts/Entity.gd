@@ -5,9 +5,6 @@ class_name Entity
 
 func _ready() -> void:
 	update_speed()
-	var shape: Shape2D = $CollisionShape2D.get_shape()
-	if shape is CircleShape2D:
-		shape.set_radius( radius )
 
 
 func die() -> void:
@@ -25,7 +22,11 @@ export (int, 0, 100, 5) var radius: int = 35 setget , get_radius
 
 
 func get_radius() -> int:
-	return radius
+	for child in get_children():
+		if child is CollisionShape2D:
+			if child is CircleShape2D:
+				return radius
+	return 0
 	
 
 # SPEED

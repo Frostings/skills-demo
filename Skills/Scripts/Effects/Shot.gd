@@ -63,11 +63,13 @@ func _physics_process( delta:float ) -> void:
 	position += ( actor.position - position ).normalized() * delta * recall_speed
 	if (actor.position - position).length() < 5:
 		queue_free()
-	
+
+
 func _on_body_entered( _body: Entity ) -> void:
 	if _body == actor:
 		if _recalling:
 			queue_free()
+			return
 		else:
 			return
 	emit_signal( "skill_shot_hit", get_parent(), actor, position, _body )

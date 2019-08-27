@@ -31,7 +31,7 @@ func _create_shot( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> vo
 	shot.skill_shot_range = skill_shot_range
 	shot.fixed_range = fixed_range
 	shot.num_targets = num_targets
-	get_owner().add_child( shot )
+	get_node( "/root" ).add_child( shot )
 
 	if shot.connect( "skill_shot_hit", self, "on_shot_hit" ):
 		print_debug( Utility.ERROR_SIGNAL )

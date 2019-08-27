@@ -2,6 +2,9 @@ extends Node2D
 class_name Skill, "res://Skills/Assets/CustomIcons/Skill.png"
 
 
+signal cooldown_changed
+
+
 enum SkillStatus {
 	USED,
 	ON_COOLDOWN,
@@ -10,8 +13,9 @@ enum SkillStatus {
 	NO_AVAILABLE_TARGETS,
 }
 
-export (float, 0, 500, 0.25) var cooldown := 1.0
-export (int, 1, 10) var charges := 1
+
+export (float, 0, 500, 0.01) var cooldown := 1.0 setget set_cooldown
+export (int, 1, 10) var charges := 1 setget set_charges
 export (bool) var bypass_cc := false
 export (float, 0, 1000, 25) var cast_range := 200.0
 export (float, 0.01, 5, 0.01) var animation_delay := 0.01
@@ -107,8 +111,6 @@ func _on_cooldown_timer_timeout() -> void:
 		cooldown_timer.stop()
 	
 
-#func _on_animation_timer_timeout( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
-	
 func is_on_cooldown() -> bool:
 	return available_charges == 0
 	
@@ -117,3 +119,17 @@ func is_on_cooldown() -> bool:
 func set_cooldown_reduction( cooldown_amount: float ) -> void:
 	cooldown_timer.set_wait_time( cooldown * (1 - cooldown_amount) )
 	
+
+
+# Setgetters -------------------------------------- #
+func set_cooldown( value: float ) -> void:
+	cooldown = stepify( value, 0.01 )
+	emit_signal( "cooldown_changed", cooldown )
+
+
+func add_cooldown( value: float ) -> void:
+	cooldown = max( 0.01, cooldown + value )
+
+
+func set_charges( value: int ) -> void:
+	charges = value

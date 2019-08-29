@@ -3,6 +3,8 @@ class_name Skill, "res://Skills/Assets/CustomIcons/Skill.png"
 
 
 signal cooldown_changed
+signal skill_used
+signal skill_charge_gained
 
 
 enum SkillStatus {
@@ -14,6 +16,7 @@ enum SkillStatus {
 }
 
 
+export (int, "A", "Q", "W", "E", "R", "D") var id := 0 setget , get_id
 export (float, 0, 500, 0.01) var cooldown := 1.0 setget set_cooldown
 export (int, 1, 10) var charges := 1 setget set_charges
 export (bool) var bypass_cc := false
@@ -89,6 +92,7 @@ func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 	available_charges -= 1
 	if animation_timer.is_stopped():
 		animation_timer.start()
+	emit_signal( "skill_used", self )
 	return SkillStatus.USED
 	
 
@@ -109,6 +113,7 @@ func _on_cooldown_timer_timeout() -> void:
 	available_charges += 1
 	if available_charges == charges:
 		cooldown_timer.stop()
+	emit_signal( "skill_charge_gained", self )
 	
 
 func is_on_cooldown() -> bool:
@@ -133,3 +138,7 @@ func add_cooldown( value: float ) -> void:
 
 func set_charges( value: int ) -> void:
 	charges = value
+
+
+func get_id() -> int:
+	return id

@@ -56,19 +56,29 @@ func update_speed() -> void:
 
 # HEALTH
 #######################################################################
+signal health_changed
 
 export (int, 1, 1000, 1) var max_health := 10
 onready var current_health := max_health
 
 
+func add_max_health( value: int ) -> void:
+	max_health = int( max( 1, max_health + value ) )
+	if value > 0:
+		heal( value )
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
+
+
 func heal( value: int ) -> void:
 	current_health = int( min( max_health, current_health + value ) )
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
 
 
 func remove_health( value: int ) -> void:
 	current_health = int( max( 0, current_health - value ) )
 	if current_health == 0:
 		die()
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
 
 
 func take_damage( value: int ) -> void:
@@ -78,6 +88,7 @@ func take_damage( value: int ) -> void:
 		remove_health( value - shield_amount )
 	else:
 		shield_amount -= value
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
 
 
 # SHIELD
@@ -87,11 +98,13 @@ var shield_amount: int
 
 func add_shield( _amount: int ) -> void:
 	shield_amount += _amount
-
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
+	
 	
 func remove_shield( _amount: int ) -> void:
 	shield_amount = int ( max( 0, shield_amount - _amount ) )
-
+	emit_signal( "health_changed", current_health, max_health, shield_amount )
+	
 
 # CRIT CHANCE
 #######################################################################

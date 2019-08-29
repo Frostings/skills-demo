@@ -46,6 +46,7 @@ func play( _actor: Entity, _mouse_posn: Vector2, target: Entity ) -> void:
 	else:
 		direction = mouse_posn - _actor.get_position()
 		if !fixed_range and direction.length() <= dash_range:
+			speed_scale = direction.length()/dash_range
 			destination = _actor.position + direction
 		else:
 			direction = direction.normalized()

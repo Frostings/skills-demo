@@ -20,7 +20,7 @@ export (int, "A", "Q", "W", "E", "R", "D") var id := 0 setget , get_id
 export (float, 0, 500, 0.01) var cooldown := 1.0 setget set_cooldown
 export (int, 1, 10) var charges := 1 setget set_charges
 export (bool) var bypass_cc := false
-export (float, 0, 1000, 25) var cast_range := 200.0
+export (float, 0, 1000, 1) var cast_range := 50.0
 export (float, 0.01, 5, 0.01) var animation_delay := 0.01
 
 var cooldown_timer: Timer

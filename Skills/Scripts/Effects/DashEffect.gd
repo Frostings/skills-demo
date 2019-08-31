@@ -14,8 +14,8 @@ var dash_tween: Tween
 var _target: Entity
 var mouse_posn: Vector2
 
+
 func _ready():
-	
 	dash_tween = Tween.new()
 	if dash_tween.connect( "tween_completed", self, "_on_dash_completed" ):
 		print_debug( Utility.ERROR_SIGNAL )

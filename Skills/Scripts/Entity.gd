@@ -18,7 +18,7 @@ func die() -> void:
 
 # RADIUS
 #######################################################################
-export (int, 0, 100, 5) var radius: int = 35 setget , get_radius
+export (int, 0, 100, 5) var radius := 35 setget , get_radius
 
 
 func get_radius() -> int:
@@ -93,7 +93,7 @@ func take_damage( value: int ) -> void:
 
 # SHIELD
 #######################################################################
-var shield_amount: int
+var shield_amount := 0
 
 
 func add_shield( _amount: int ) -> void:

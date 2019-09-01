@@ -99,7 +99,7 @@ func use( actor: Entity, _mouse_posn: Vector2, target: Entity ) -> int:
 func is_target_in_range( actor: Entity, _target: Entity ) -> bool:
 	if cast_range == 0.0:
 		return true
-	return ( _target.position - actor.position ).length() <= cast_range + _target.get_radius()
+	return ( _target.position - actor.position ).length() <= cast_range + _target.radius
 	
 
 func is_posn_in_range( actor: Entity, _posn: Vector2 ) -> bool:

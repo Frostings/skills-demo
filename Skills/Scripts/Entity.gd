@@ -18,7 +18,7 @@ func die() -> void:
 
 # RADIUS
 #######################################################################
-export (int, 0, 100, 5) var radius := 35 setget , get_radius
+export (int, 0, 100, 5) var radius := 10 setget , get_radius
 
 
 func get_radius() -> int:
@@ -26,7 +26,7 @@ func get_radius() -> int:
 		if child is CollisionShape2D:
 			if child is CircleShape2D:
 				return radius
-	return 0
+	return radius
 	
 
 # SPEED

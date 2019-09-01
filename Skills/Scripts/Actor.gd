@@ -47,8 +47,8 @@ func move_slide( dest: Vector2, _delta: float ) -> void:
 
 # queue a target to attack or use a skill on
 func queue_target( _target: Entity, _skill: Skill ) -> void:
-	movement_queued = true
 	queued_target = _target
+	movement_queued = true
 	queued_skill = _skill
 
 

@@ -7,6 +7,8 @@ export (float, 0.01, 5, 0.01) var duration := 1.0
 export (int, 0, 1000) var fixed_range := 0
 export (int, "Ground", "Actor", "Target") var attach_to := 0
 export (Texture) var indicator: Texture
+export (Texture) var aoe_texture: Texture
+export (bool) var look_at := false
 
 onready var area: Area2D
 onready var bodies: Array = [] setget , get_bodies
@@ -39,19 +41,25 @@ func play( _actor: Entity, _mouse_posn: Vector2, _target: Entity ) -> void:
 	_area.duration = duration
 	_area.delay = delay
 	_area.aoe_effect = self
-	
+	_area.aoe_texture = aoe_texture
+	if look_at:
+		_area.look_at = true
+		_area.look_at_position = _mouse_posn + _mouse_posn - _actor.position
+	# Create the indicator
 	var _indicator_sprite := Sprite.new()
 	_indicator_sprite.texture = indicator
 	_indicator_sprite.z_index = -1
 	
+	# Create the indicator's tween
 	var _indicator_tween := Tween.new()
-	if !_indicator_tween.interpolate_property( _indicator_sprite, "modulate", Color( 1,1,1,0.25 ), Color( 1,1,1,0.75 ), delay,
+	if !_indicator_tween.interpolate_property( _indicator_sprite, "modulate", Color( 1,1,1,0.1 ), Color( 1,1,1,0.5 ), delay,
 			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT ):
 		print_debug( Utility.ERROR_INTERPOLATE )
 	if !_indicator_tween.start():
 		print_debug( Utility.ERROR_TWEEN_START )
 	_indicator_sprite.add_child( _indicator_tween )
 	_area.add_child( _indicator_sprite )
+	
 	
 	match attach_to:
 		0: # Ground

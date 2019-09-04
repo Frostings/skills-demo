@@ -4,6 +4,11 @@ extends Area2D
 var duration: float
 var delay: float
 var aoe_effect: Effect
+var aoe_texture: Texture
+var look_at: bool
+var look_at_position: Vector2
+
+onready var _aoe_sprite: Sprite = Sprite.new()
 
 
 func _ready() -> void:
@@ -33,8 +38,15 @@ func _ready() -> void:
 		print_debug( Utility.ERROR_SIGNAL )
 	add_child( _delay_timer )
 
+	_aoe_sprite.texture = aoe_texture
+	_aoe_sprite.hide()
+	add_child( _aoe_sprite )
+	if look_at:
+		_aoe_sprite.look_at( look_at_position )
+
 
 func _on_delay_timer_timeout( _delay_timer: Timer, _expire_timer: Timer ) -> void:
 	monitoring = true
 	_expire_timer.start()
 	_delay_timer.queue_free()
+	_aoe_sprite.show()
